@@ -295,7 +295,7 @@ figure {
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
-  height: 400px; /* set a fixed height for the card */
+  height: 400px;
   width: 400px;
   margin: 20px;
 }
@@ -303,6 +303,7 @@ figure > * {
   grid-area: 1/1;
   transition: .4s;
 }
+
 figure figcaption {
   display: grid;
   grid-auto-flow: column;
@@ -330,15 +331,26 @@ figure:hover img {
    -webkit-mask: none;
    color: #fff;
   }
-
-  img {
-    
-  }
-
 }
 
+ .card-wrapper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+  grid-gap: 1.5rem;
+}
 
-
+img {
+  border-radius: 0.5rem 0.5rem 0 0;
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  height: max(10rem, 30vh);
+  object-fit: cover;
+  aspect-ratio: 4/3;
+}
 
 
 
