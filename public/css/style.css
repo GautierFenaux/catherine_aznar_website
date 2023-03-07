@@ -215,6 +215,13 @@ li {
     list-style-type: none;
 }
 
+.li-nav-global a{
+  margin: 0 20px;
+  border-bottom: 2px solid;
+  padding-bottom: 5px;
+  text-decoration: none;
+}
+
 .logo {
         position: absolute;
         top: 50%;
@@ -315,7 +322,7 @@ figure > * {
   transition: .4s;
 }
 
-figure figcaption {
+/* figure figcaption {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -330,7 +337,7 @@ figure figcaption {
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   -webkit-mask-clip: text, padding-box;
-}
+} */
 figure:hover figcaption{
   --_i: 0%;
 }
@@ -353,7 +360,7 @@ figure:hover img {
   grid-gap: 1.5rem;
 }
 
-img {
+.image-gallery {
   width: 100%;
   min-height: 100%;
   object-fit: cover;
@@ -364,15 +371,32 @@ img {
 
 
 
+
+
+
+
+
+
+
+
+
+
+/***********************************************************************************************************************************/
+/**********************************************************************************************************************************/
+/************************************************************** ARTWORK **********************************************************/
+/********************************************************************************************************************************/
+/*******************************************************************************************************************************/
+
+
 .artwork-picture {
-  
+  max-width: 100%;
+  height: auto;
 }
 
-
-
-
-
-
+.artwork-container {
+  width: 500px;
+  height: auto;
+}
 
 
 
@@ -444,7 +468,14 @@ img {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-  } 
+  }
+
+  .container {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  padding: 80px;
+}
 
 
 

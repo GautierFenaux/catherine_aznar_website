@@ -15,7 +15,7 @@
 		<ul class="card-container flex">
 			{% for artwork in artworks %}
 				<figure style="--c:#fff5" class="card">
-					<a href="{{ path('artwork', {'id': artwork.id} )}}"><img src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/></a>
+					<a href="{{ path('artwork', {'id': artwork.id} )}}"><img class="image-gallery" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/></a>
 					<figcaption>{{ artwork.name }}</figcaption>
 				</figure>
 			{% endfor %}
