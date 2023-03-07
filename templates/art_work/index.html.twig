@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtWorkController!
+{% endblock %}
+
+{% block body %}
+	<div>
+		<div class="artwork-container">
+			<img class="artwork-picture" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
+		</div>
+	</div>
+{% endblock %}
