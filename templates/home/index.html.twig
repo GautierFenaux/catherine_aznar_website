@@ -28,13 +28,12 @@
 
 					{% for artwork in artworks %}
 					
-						<div class="gallery-item">
+						<div class="gallery-item gallery-item-{{loop.index}}">
 							<div class="image">
 								<a href="{{ path('artwork', {'id': artwork.id} )}}">
-									<img class="image-gallery" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
+									<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
 								</a>
 							</div>
-							<div class="text">Nature</div>
 						</div>
 					
 				{% endfor %}
