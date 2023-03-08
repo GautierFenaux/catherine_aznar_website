@@ -11,31 +11,18 @@
 	{% block body %}
 
 		<section>
+
 			<div class="gallery-container">
+				{% for artwork in artworks %}
 
-
-				{# <div class="card-container flex"> #}
-				{# <ul class="card-container flex">
-								{% for artwork in artworks %}
-									<figure style="--c:#fff5" class="card">
-										<a href="{{ path('artwork', {'id': artwork.id} )}}"><img class="image-gallery" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/></a>
-										<figcaption>{{ artwork.name }}</figcaption>
-										</figure>
-								{% endfor %}
-							</ul> #}
-				{# </div> #}
-
-
-					{% for artwork in artworks %}
-					
-						<div class="gallery-item gallery-item-{{loop.index}}">
-							<div class="image">
-								<a href="{{ path('artwork', {'id': artwork.id} )}}">
-									<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
-								</a>
-							</div>
+					<div class="gallery-item gallery-item-{{loop.index}}">
+						<div class="image">
+							<a href="{{ path('artwork', {'id': artwork.id} )}}">
+								<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
+							</a>
 						</div>
-					
+					</div>
+
 				{% endfor %}
 
 			</div>
