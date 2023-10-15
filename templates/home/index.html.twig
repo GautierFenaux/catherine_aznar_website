@@ -10,9 +10,9 @@
 <div class="wrapper">
 	{% block body %}
 
-		<section>
+		<section class="vertical-flex">
 
-			<div class="gallery-container">
+			{# <div class="gallery-container" style="margin-bottom: 400px">
 				{% for artwork in artworks %}
 
 					<div class="gallery-item gallery-item-{{loop.index}}">
@@ -25,7 +25,27 @@
 
 				{% endfor %}
 
+			</div> #}
+			{% include 'nav/vertical_nav.html.twig'%}
+			<div class="gallery-container2">
+				{% for artwork in artworks %}
+
+					<div class="gallery-item gallery-item2-{{loop.index}}">
+						<div class="image">
+							<a href="{{ path('artwork', {'id': artwork.id} )}}">
+								<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
+							</a>
+						</div>
+					</div>
+
+				{% endfor %}
+
 			</div>
+
+
+
+
+
 		</section>
 
 

@@ -22,7 +22,7 @@ class Categorie
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
     #[ORM\ManyToMany(targetEntity: Artwork::class, mappedBy: 'categorie')]
@@ -99,5 +99,10 @@ class Categorie
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name ;
     }
 }

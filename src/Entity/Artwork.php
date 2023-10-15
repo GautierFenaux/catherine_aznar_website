@@ -43,7 +43,7 @@ class Artwork
     #[ORM\Column(nullable: true)]
     private ?bool $portfolio = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]

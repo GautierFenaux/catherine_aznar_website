@@ -47,6 +47,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "easycorp/easyadmin-bundle": {
+        "version": "v4.7.7"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

@@ -6,7 +6,10 @@
 {% block body %}
 	<div class="flex">
 		<div class="artwork-container">
-			<img class="artwork-picture" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
+			<img class="artwork-picture" src="{{ asset('images/' ~ artwork.file) }}" alt="{{ artwork.name }}"/>
+			<h2> <strong>{{ artwork.name }}</strong></h2>
+			<br>
+			<p>{{ artwork.description }}</p>
 		</div>
 	</div>
 {% endblock %}
