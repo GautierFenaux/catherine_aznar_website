@@ -46,15 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instagram = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Artwork::class, orphanRemoval: true)]
-    private Collection $artworks;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Blogpost::class)]
     private Collection $blogposts;
 
     public function __construct()
     {
-        $this->artworks = new ArrayCollection();
         $this->blogposts = new ArrayCollection();
     }
 
@@ -184,36 +180,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setInstagram(?string $instagram): self
     {
         $this->instagram = $instagram;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Artwork>
-     */
-    public function getArtworks(): Collection
-    {
-        return $this->artworks;
-    }
-
-    public function addArtwork(Artwork $artwork): self
-    {
-        if (!$this->artworks->contains($artwork)) {
-            $this->artworks->add($artwork);
-            $artwork->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtwork(Artwork $artwork): self
-    {
-        if ($this->artworks->removeElement($artwork)) {
-            // set the owning side to null (unless already changed)
-            if ($artwork->getUser() === $this) {
-                $artwork->setUser(null);
-            }
-        }
 
         return $this;
     }

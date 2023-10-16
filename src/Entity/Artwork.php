@@ -49,20 +49,20 @@ class Artwork
     #[ORM\Column(length: 255)]
     private ?string $file = null;
 
-    #[ORM\ManyToOne(inversedBy: 'artworks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'artworks')]
     private Collection $categorie;
 
     #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: ArtworkImage::class, cascade:['persist'])]
+    private Collection $artworkImages;
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->artworkImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,18 +202,6 @@ class Artwork
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Categorie>
      */
@@ -266,5 +254,40 @@ class Artwork
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, ArtworkImage>
+     */
+    public function getArtWorkImages(): Collection
+    {
+        return $this->artworkImages;
+    }
+
+    public function addArtWorkImage(ArtworkImage $artworkImage): self
+    {
+        if (!$this->artworkImages->contains($artworkImage)) {
+            $this->artworkImages->add($artworkImage);
+            $artworkImage->setArtwork($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtWorkImage(ArtworkImage $artworkImage): self
+    {
+        if ($this->artworkImages->removeElement($artworkImage)) {
+            // set the owning side to null (unless already changed)
+            if ($artworkImage->getArtwork() === $this) {
+                $artworkImage->setArtwork(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

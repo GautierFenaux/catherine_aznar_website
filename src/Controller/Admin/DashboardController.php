@@ -60,7 +60,9 @@ class DashboardController extends AbstractDashboardController
         MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Créer une nouvelle série', 'fas fa-plus', Categorie::class)
             ->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Afficher les séries existantes', 'fas fa-eye', Categorie::class)
+            MenuItem::linkToCrud('Afficher les séries existantes', 'fas fa-eye', Categorie::class),
+
+
         ]),
 
 
