@@ -55,7 +55,7 @@ class Artwork
     #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: ArtworkImage::class, cascade:['persist'])]
+    #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: ArtworkImage::class, cascade:['persist', 'remove'])]
     private Collection $artworkImages;
 
     public function __construct()

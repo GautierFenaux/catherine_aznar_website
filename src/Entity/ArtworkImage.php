@@ -20,13 +20,16 @@ class ArtworkImage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping : 'artwork', fileNameProperty:'name', size: 'size')]
-     private ?File $file = null;
+    #[Vich\UploadableField(mapping : 'artwork', fileNameProperty:'name')]
+    private ?File $file = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $fileName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $size = null;
 
     #[ORM\Column(nullable: true)]
@@ -35,9 +38,16 @@ class ArtworkImage
     #[ORM\ManyToOne(inversedBy: 'artworkImages')]
     private ?Artwork $artwork = null;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
     }
 
     public function setFile(?File $file): self
@@ -51,12 +61,17 @@ class ArtworkImage
         return $this ;
     }
 
-    public function getFile(): ?File
+    public function getFileName(): ?string
     {
-        return $this->file;
+        return $this->fileName;
     }
 
+    public function setFileName(?string $fileName): self
+    {
+        $this->fileName = $fileName;
 
+        return $this;
+    }
 
     public function getName(): ?string
     {
@@ -106,10 +121,8 @@ class ArtworkImage
         return $this;
     }
 
-
     public function __toString()
     {
-        return $this->name;
+        return $this->fileName;
     }
-
 }

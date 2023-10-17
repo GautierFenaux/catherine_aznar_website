@@ -3,9 +3,12 @@
 namespace App\Controller\Admin;
 
 use DateTime;
+use App\Form\TestType;
 use App\Entity\Artwork;
 use App\Form\ArtworkImageType;
+use App\Form\ArtworkImageType2Type;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -27,8 +30,7 @@ class ArtworkCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
 
-        // taille des images ne doit pas exceder
-        return [
+        $crudForm = [
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Nom de l\'oeuvre'),
             TextareaField::new('description')->stripTags(),
@@ -36,11 +38,19 @@ class ArtworkCrudController extends AbstractCrudController
                 ->setBasePath('images')
                 ->setUploadDir('public/images'),
             CollectionField::new('artworkImages', 'Images d\'illustration')
-                ->setEntryType(ArtworkImageType::class),
+                ->setEntryType(TestType::class),
             DateTimeField::new('realisation_date', 'Date de réalisation'),
             DateTimeField::new('created_at', )->hideOnForm(),
             AssociationField::new('categorie', 'Série'),
-        ];
+        ] ;
+
+        if ($pageName === Crud::PAGE_EDIT) {
+            unset($crudForm[3]) ;
+            return $crudForm ;
+
+        } else {
+            return $crudForm ;
+        }
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
