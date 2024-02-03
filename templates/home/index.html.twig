@@ -12,38 +12,10 @@
 
 		<section class="vertical-flex">
 
-			{# <div class="gallery-container" style="margin-bottom: 400px">
-				{% for artwork in artworks %}
 
-					<div class="gallery-item gallery-item-{{loop.index}}">
-						<div class="image">
-							<a href="{{ path('artwork', {'id': artwork.id} )}}">
-								<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
-							</a>
-						</div>
-					</div>
-
-				{% endfor %}
-
-			</div> #}
-			{% include 'nav/vertical_nav.html.twig'%}
-			<div class="gallery-container2">
-				{% for artwork in artworks %}
-
-					<div class="gallery-item gallery-item2-{{loop.index}}">
-						<div class="image">
-							<a href="{{ path('artwork', {'id': artwork.id} )}}">
-								<img class="gallery-image" src="{{ asset('images/' ~ artwork.name) }}" alt="{{ artwork.name }}"/>
-							</a>
-						</div>
-					</div>
-
-				{% endfor %}
-
+			<div class="container">
+				<a id="myLink" href="#" style="display: none;">Link</a>
 			</div>
-
-
-
 
 
 		</section>
@@ -52,5 +24,124 @@
 	{% endblock %}
 </div>
 {% block javascripts %}
-	<script></script>
+	<script>
+let artworks = JSON.parse({{ artworks|json_encode|raw }});
+console.log(artworks)
+
+const container = document.querySelector('.container')
+let video ;
+
+function generateMansoryGrid(columns, artworks) {
+
+container.innerHTML = ''
+let columnWrappers = {}
+// Créer les colonnes
+for (let i = 0; i < columns; i++) {
+	columnWrappers[`column${i}`] = []
+}
+console.log(artworks)
+console.log(columnWrappers)
+
+// stock les images dans les colonnes
+for (let i = 0; i < artworks.length; i++) {
+	const column = i % columns
+	console.log(column, artworks[i]);
+	columnWrappers[`column${column}`].push(artworks[i])
+}
+// Créer le contenu html
+for (let i = 0; i < columns; i++) {
+	let columnArtworks = columnWrappers[`column${i}`];
+	let column = document.createElement('div')
+	column.classList.add('column')
+
+	columnArtworks.forEach(artwork => {
+
+	let artworkDiv = document.createElement('div')
+	artworkDiv.classList.add('artwork')
+
+
+
+	if(artwork.file.includes('.mp4')) {
+		
+		video = document.createElement('video');
+		
+		// Set attributes for the video element
+		// Set the width (you can adjust this value)
+		video.controls = false;
+		video.autoplay = true;
+		video.loop = true
+		video.muted = true
+
+		// Create a source element and set its attributes
+		let source = document.createElement('source');
+		source.src = "https://127.0.0.1:8000/images/" + artwork.file;;
+		source.type = 'video/mp4'; 
+		
+		video.appendChild(source)
+		artworkDiv.append(video)
+
+
+	} else { 
+		let image = document.createElement('img')
+		image.src = "https://127.0.0.1:8000/images/" + artwork.file;
+		image.setAttribute('data-id', artwork.id);
+		let overlay = document.createElement('div')
+		overlay.classList.add('overlay')
+		let title = document.createElement('h3')
+		title.innerText = artwork.name
+		let artworkId = artwork.id
+
+		overlay.appendChild(title)
+		artworkDiv.append(overlay, image)
+
+	}
+
+		column.appendChild(artworkDiv)
+	})
+container.appendChild(column)
+}
+
+const firstImageOfSecondColumn = document.querySelector('.container .column:nth-child(2) .artwork:first-child')
+	console.log(firstImageOfSecondColumn.clientWidth);
+	video.width = firstImageOfSecondColumn.clientWidth 
+}
+
+let previousScreenSize = window.innerWidth;
+
+window.addEventListener('resize', () => {
+	imageIndex = 0
+
+	if (window.innerWidth < 600 && previousScreenSize >= 600) {
+		generateMansoryGrid(1, artworks)
+	} else if (window.innerWidth >= 600 && window.innerWidth < 1000 && (previousScreenSize < 600 || previousScreenSize >= 1000)) {
+		generateMansoryGrid(2, artworks)
+	} else if (window.innerWidth >= 1000) {
+	generateMansoryGrid(4, artworks)
+	} else if (window.innerWidth >= 1000 && previousScreenSize < 1000) {
+	generateMansoryGrid(4, artworks)
+	}
+
+})
+
+// generateMansoryGrid(4, posts)
+
+if (previousScreenSize < 600) {
+generateMansoryGrid(1, artworks)
+} else if (previousScreenSize >= 600 && previousScreenSize < 1000) {
+generateMansoryGrid(2, artworks)
+} else {
+generateMansoryGrid(4, artworks)
+}
+
+
+let artworksList = document.querySelectorAll('.artwork');
+
+        artworksList.forEach(artwork => {
+                artwork.addEventListener('click', function () {
+                        let artworkId = artwork.querySelector('img').getAttribute('data-id')
+                        let url = '/artwork/' + artworkId;
+                        window.location.href = url;
+                });
+        })
+	</script>
 {% endblock %}

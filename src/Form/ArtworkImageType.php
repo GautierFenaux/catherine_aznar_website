@@ -21,7 +21,6 @@ class ArtworkImageType extends AbstractType
             ])
             ->add('fileName', TextType::class, [
                 'label' => 'Nom',
-                'required'
             ])
         ;
     }

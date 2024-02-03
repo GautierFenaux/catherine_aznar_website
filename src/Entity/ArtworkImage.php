@@ -9,6 +9,7 @@ use Vich\Uploadable as Uploadable;
 use App\Repository\ArtworkImageRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: ArtworkImageRepository::class)]
@@ -22,7 +23,8 @@ class ArtworkImage
 
     #[Vich\UploadableField(mapping : 'artwork', fileNameProperty:'name')]
     private ?File $file = null;
-
+   
+    #[Assert\NotNull]
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
 

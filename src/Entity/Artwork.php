@@ -58,6 +58,15 @@ class Artwork
     #[ORM\OneToMany(mappedBy: 'artwork', targetEntity: ArtworkImage::class, cascade:['persist', 'remove'])]
     private Collection $artworkImages;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $columnImage = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $positionInColumn = null;
+
+   
+   
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
@@ -289,5 +298,29 @@ class Artwork
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getColumnImage(): ?int
+    {
+        return $this->columnImage;
+    }
+
+    public function setColumnImage(int $columnImage): self
+    {
+        $this->columnImage = $columnImage;
+
+        return $this;
+    }
+
+    public function getPositionInColumn(): ?int
+    {
+        return $this->positionInColumn;
+    }
+
+    public function setPositionInColumn(?int $positionInColumn): self
+    {
+        $this->positionInColumn = $positionInColumn;
+
+        return $this;
     }
 }

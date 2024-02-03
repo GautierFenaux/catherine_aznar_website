@@ -3,10 +3,8 @@
 namespace App\Controller\Admin;
 
 use DateTime;
-use App\Form\TestType;
 use App\Entity\Artwork;
 use App\Form\ArtworkImageType;
-use App\Form\ArtworkImageType2Type;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -38,7 +36,7 @@ class ArtworkCrudController extends AbstractCrudController
                 ->setBasePath('images')
                 ->setUploadDir('public/images'),
             CollectionField::new('artworkImages', 'Images d\'illustration')
-                ->setEntryType(TestType::class),
+                ->setEntryType(ArtworkImageType::class),
             DateTimeField::new('realisation_date', 'Date de réalisation'),
             DateTimeField::new('created_at', )->hideOnForm(),
             AssociationField::new('categorie', 'Série'),
@@ -55,7 +53,7 @@ class ArtworkCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-
+        
         if(!$entityInstance instanceof Artwork) return ;
         $entityInstance->setCreatedAt(new \DateTimeImmutable());
         parent::persistEntity($entityManager, $entityInstance);

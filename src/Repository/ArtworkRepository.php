@@ -39,20 +39,29 @@ class ArtworkRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Artwork[] Returns an array of Artwork objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Artwork[] Returns an array of Artwork objects
+    */
+   public function findByMaxPositionInColumns(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->select('MAX(a.positionInColumn)')
+           ->getQuery()
+           ->getResult()
+       ;
+
+
+    //    $query = $this->createQueryBuilder('s');
+    //    $query->select('s, MAX(s.score) AS HIDDEN max_score');
+    //    $query->where('s.challenge = :challenge')->setParameter('challenge', $challenge);
+    //    $query->groupBy('s.user');
+    //    $query->setMaxResults($limit);
+    //    $query->orderBy('max_score', 'DESC');
+
+
+
+
+   }
 
 //    public function findOneBySomeField($value): ?Artwork
 //    {
